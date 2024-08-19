@@ -8,7 +8,9 @@ import (
 func main() {
 	app := server.New()
 
-	http.HandleFunc("/ws", app.Echo)
+	go app.DisplayMessages()
+
+	http.HandleFunc("/ws", app.Start)
 
 	http.ListenAndServe(":8001", nil)
 }
