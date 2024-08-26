@@ -20,6 +20,11 @@ Start the server
 go run main.go
 ```
 
+Start the UI using liveServer or directly open the register.html file on chrome
+- Enter your username to register
+- Now you can send messages to the hub
+- You can open one more window to mimic some other user
+
 ## Additional Tools
 
 To test the app you would require a websocket tool as curl is not sufficient for a full websocket connection
@@ -28,7 +33,7 @@ To test the app you would require a websocket tool as curl is not sufficient for
 npm install -g wscat
 ```
 
-Connect
+Connect to the websocket using wscat
 
 ```bash
 wscat -c ws://localhost:8001/ws -o ws://localhost
