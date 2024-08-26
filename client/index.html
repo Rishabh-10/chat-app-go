@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebSocket Message Display</title>
+</head>
+<body>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -43,8 +45,6 @@
             border-bottom: none;
         }
     </style>
-</head>
-<body>
     <div class="container">
         <h2>WebSocket Message Display</h2>
         
@@ -52,17 +52,47 @@
             <h3>Messages</h3>
             <ul class="messages" id="ws1-messages"></ul>
         </div>
-    </div>
 
+        <div class="text-box">
+            <form id="form">
+                <input type="text" name="message" id="message" placeholder="Message" autofocus>
+                <input type="submit" value="Send">
+            </form>
+        </div>
+    </div>
     <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        const username = getQueryParam('username');
+        if (username) {
+        } else {
+            document.body.innerHTML = "<h1>No username provided!</h1>";
+        }
+        
         const ws = new WebSocket('ws://localhost:8001/ws');
-        const wsMessages = document.getElementById('ws1-messages');
 
         ws.onmessage = function(event) {
+            const wsMessages = document.getElementById('ws1-messages');
             const message = document.createElement('li');
-            console.log(message);
             message.textContent = event.data;
             wsMessages.appendChild(message);
+        };
+
+        document.getElementById("form").onsubmit = function () {
+            var msg = document.getElementById("message");
+            
+            if (!ws) {
+                return false;
+            }
+            if (!msg.value) {
+                return false;
+            }
+            ws.send(username +": "  + msg.value);
+            msg.value = "";
+            return false;
         };
     </script>
 </body>
