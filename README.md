@@ -1,4 +1,4 @@
-# chat-app-go
+# chat-app-go-hello
 
 a basic chat app made using websockets 
 
